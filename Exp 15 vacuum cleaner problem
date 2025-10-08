@@ -1,0 +1,12 @@
+def vacuum(env, pos):
+    print("Start:", env, "Vacuum at", pos)
+    for room in ["A","B"]:
+        pos = room
+        if env[room]=="Dirty":
+            print("Clean", room)
+            env[room]="Clean"
+        else:
+            print(room, "already clean")
+    print("End:", env)
+env={"A":"Dirty","B":"Clean"}  # Example
+vacuum(env,"A")
