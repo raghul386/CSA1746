@@ -1,0 +1,13 @@
+from collections import deque
+def water_jug(a, b, target):
+    q, vis = deque([((0,0), [])]), set()
+    while q:
+        (x,y), path = q.popleft()
+        if (x,y) in vis: continue
+        vis.add((x,y)); path = path+[(x,y)]
+        if x==target or y==target: 
+            print("Solution:", path); return
+        q += [((a,y),path),((x,b),path),((0,y),path),((x,0),path),
+              ((min(a,x+y),x+y-min(a,x+y)),path),
+              ((x+y-min(b,x+y),min(b,x+y)),path)]
+water_jug(4,3,2)
