@@ -1,0 +1,26 @@
+from heapq import heappush, heappop
+def a_star(graph, start, goal, h):
+    open_set = []
+    heappush(open_set, (h[start], 0, start, [start]))  # (f, g, node, path)
+    visited = set()
+    while open_set:
+        f, g, node, path = heappop(open_set)
+        if node == goal:
+            print("Path:", path, "Cost:", g)
+            return
+        if node in visited:
+            continue
+        visited.add(node)
+        for neighbor, cost in graph[node].items():
+            if neighbor not in visited:
+                heappush(open_set, (g + cost + h[neighbor], g + cost, neighbor, path + [neighbor]))
+# Example Graph (Weighted adjacency list)
+graph = {
+    'A': {'B':1, 'C':4},
+    'B': {'C':2, 'D':5},
+    'C': {'D':1},
+    'D': {}
+}
+# Heuristic (Estimated distance to goal D)
+h = {'A':7, 'B':6, 'C':2, 'D':0}
+a_star(graph, 'A', 'D', h)
